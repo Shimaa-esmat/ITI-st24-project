@@ -1,6 +1,18 @@
 document.addEventListener('DOMContentLoaded', function () {
-    link = this.getElementsByClassName('nav-link')
-    console.log(link)
+
+
+    const links = document.querySelectorAll('.nav-link');
+
+    links.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            links.forEach(link => link.classList.remove('active'));
+            this.classList.add('active');
+            console.log(this.text)
+        });
+    });
+
+
     const spans = document.querySelectorAll('span');
     spans.forEach(span => span.classList.add('d-block'));
 
@@ -8,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
     labels.forEach(label => label.classList.add('form-label'));
 
     const inputs = document.querySelectorAll('input');
-    inputs.forEach(input => input.classList.add('form-control'));
+    inputs.forEach(input => input.classList.add('form-control','mb-3'));
 
     const errors = document.getElementsByClassName('errorlist');
     Array.from(errors).forEach(error => {
@@ -32,5 +44,9 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-    link = document.getElementsByClassName('nav-link')
-    console.log(link)
+
+
+
+
+
+
