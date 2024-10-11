@@ -8,6 +8,7 @@ from django.views.generic.edit import UpdateView, CreateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import  login_required
+import datetime
 
 
 @login_required
@@ -32,17 +33,24 @@ def update_book(request, book_id):
         form = BookForm(request.POST, instance=book)
         if form.is_valid():
             form.save()
-            return redirect('book_detail', book_id=book.id)
+            return redirect(book.all_url)
     else:
         form = BookForm(instance=book)
 
-    return render(request, 'books/edit_book.html', {'form': form})
+    return render(request, 'books/add.html', {'form': form})
             
             
 @login_required
 def borrrow_book(request, book_id):
     book = Book.objects.get(id=book_id)
-    book.borrwer = request.user
+    book.borrwer = request.user.id
+    print('----------------------------')
+    print(request.user.id)
+
+    book.return_date = datetime.date.today()+datetime.timedelta(days=7)
+    book.save()
+    url  = reverse("book.all") 
+    return  redirect(url) 
     
     
 @login_required()
@@ -56,3 +64,18 @@ def add(request):
             return redirect(book.all_url)
 
     return render(request, 'books/add.html', {'form': form})
+
+@login_required()
+def borrowed_books(request):
+    books = Book.objects.filter( borrower= request.user)
+    
+    return render(request, 'books/borrowed.html',context={"books": books})
+    
+    
+def return_book(request,book_id):
+    book = get_object_or_404(Book, id=book_id)
+    book.return_date = None
+    book.borrower = None
+    book.save()
+    url  = reverse("book.borrowed") # return with url ---> name --> students.index --> /students/
+    return  redirect(url)

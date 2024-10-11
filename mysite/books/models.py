@@ -9,8 +9,9 @@ from django.contrib.auth.models import User
 class Book(models.Model):
     title = models.CharField(max_length=100)
     auther = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='Books/images', null=True)
+    image = models.ImageField(upload_to='books/images', null=True)
     borrower = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    return_date = models.DateField(null=True)
     
     
     
@@ -21,7 +22,7 @@ class Book(models.Model):
 
     @property
     def image_url(self):
-        return f"/media/{self.image}"
+        return f"media/{self.image}"
 
 
     @property

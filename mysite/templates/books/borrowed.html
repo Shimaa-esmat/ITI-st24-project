@@ -16,10 +16,7 @@
         <h5 class="card-title">{{book.borrower}}</h5>
         <h5 class="card-title">{{book.return_date}}</h5>
 
-        <a href="{% url 'book.borrow' book.id %}" class="btn btn-primary">Borrow</a>
-        <a href="{% url 'book.delete' book.id %}" class="btn btn-danger">Delete</a>
-        <a href="{% url 'book.update' book.id %}" class="btn btn-danger">Edit</a>
-
+        <a href="{% url 'book.return' book.id %}" class="btn btn-primary">return book</a>
 
 
         </div>
