@@ -25,6 +25,9 @@
                 <a class="nav-link" href="{% url 'book.borrowed' %}">Borrowed Books</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts.profile' %}">Profile</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{% url 'accounts.users' %}">Students</a>
 
             </li>
@@ -51,9 +54,10 @@
     
             {% endif %}
     
-          </ul>
-        <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        </ul>
+        
+        <form class="d-flex" role="search" method="POST" action="{% url 'accounts.search' %}" >{% csrf_token %} 
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="username">
         <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
     </div>

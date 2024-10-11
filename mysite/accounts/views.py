@@ -5,7 +5,7 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import  login_required
 from django.shortcuts import get_object_or_404
 from accounts.forms import UserForm
-
+from django.db.models import Q  
 
 # Create your views here.
 class AccountCreatioForm(CreateView):
@@ -17,8 +17,7 @@ class AccountCreatioForm(CreateView):
 @login_required()
 def profile(request):
     # user = User.objects.get(id = request.id)
-    return render(request, 'accounts/profile.html',
-                   context={"user": request.user})
+    return render(request, 'accounts/profile.html',context={"user": request.user})
 
 
 def edit_profile(request):
@@ -37,3 +36,9 @@ def edit_profile(request):
 def all_users(request):
     users = User.objects.all()
     return render(request, 'accounts/users.html',context={'users':users})
+
+def search_users(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        users = User.objects.filter(username__contains = username)
+        return render(request, 'accounts/users.html',context={'users':users})
