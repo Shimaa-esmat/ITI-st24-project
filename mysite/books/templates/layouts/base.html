@@ -9,33 +9,34 @@
     <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-    <a class="navbar-brand" href="#">ITI</a>
+    <a class="navbar-brand" href="#">Library Management</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'book.all' %}">All Books</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'book.add' %}">Add Book</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'book.borrowed' %}">Borrowed Books</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'accounts.profile' %}">Profile</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'accounts.users' %}">Students</a>
-
-            </li>
+            {% if user.is_authenticated %}
                 <li class="nav-item">
-            </li>
-    
-            {% if request.user.is_authenticated %}
-            </li>
+                    <a class="nav-link" aria-current="page" href="{% url 'book.all' %}">All Books</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'book.borrowed' %}">Borrowed Books</a>
+                </li>
+                {% if user.username == "admin" %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'book.add' %}">Add Book</a>
+                    </li>
+                    <li class="nav-item"></li>
+                        <a class="nav-link" href="{% url 'accounts.users' %}">Students</a>
+                    </li>
+                {% endif %}
+                <li class="nav-item"></li>
+                    <a class="nav-link">|</a>
+                </li>
+                <li class="nav-item"></li>
+                    <a class="nav-link" href="{% url 'accounts.profile' %}">Profile</a>
+                </li>
+                
                 <li class="nav-item">
                     <form method="post" action="{% url 'logout' %}">
                             {% csrf_token %}
@@ -43,23 +44,23 @@
                     </form>
                 </li>
             {% else %}
-            </li>
-                <li class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}">Login</a>
-            </li>
-            </li>
-                <li class="nav-item">
-            <a class="nav-link" href="{% url 'accounts.register' %}">Sign up</a>
-            </li>
-    
+                </li>
+                    <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                </li>
+                    <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts.register' %}">Sign up</a>
+                </li>
             {% endif %}
     
         </ul>
-        
-        <form class="d-flex" role="search" method="POST" action="{% url 'accounts.search' %}" >{% csrf_token %} 
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="username">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        {% if user.username == "admin" %}
+            <form class="d-flex" role="search" method="POST" action="{% url 'accounts.search' %}" >{% csrf_token %} 
+                <input class="form-control me-2" type="search" placeholder="Search students by ID" aria-label="Search" name="id">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        {% endif %}
     </div>
     </div>
     </nav>

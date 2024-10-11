@@ -1,29 +1,24 @@
 from django.db import models
-from django.shortcuts import  reverse
 from django.contrib.auth.models import User
-
+from django.urls import reverse
 
 
 # Create your models here.
 
+
 class Book(models.Model):
     title = models.CharField(max_length=100)
-    auther = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='books/images', null=True)
+    author = models.CharField(max_length=100)
+    image = models.ImageField(upload_to="books/images", null=True)
     borrower = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     return_date = models.DateField(null=True)
-    
-    
-    
-    
+
     def __str__(self):
         return f"{self.title}"
 
-
     @property
     def image_url(self):
-        return f"media/{self.image}"
-
+        return f"/media/{self.image}"
 
     @property
     def all_url(self):
@@ -42,5 +37,5 @@ class Book(models.Model):
 
     @property
     def borrow_url(self):
-        url = reverse("book.borrrow", args=[self.id])
+        url = reverse("book.borrow", args=[self.id])
         return url

@@ -6,24 +6,28 @@
 
 <div>
     {% for book in books %}
+        <div class="card border-secondary" style="width: 18rem; display: inline-block; margin:auto;" >
+            <img src="{{ book.image_url }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{book.title}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{book.author}}</h6>
+                {% if book.borrower %}
+                    <p class="card-text">
+                        <b>Borrowed By:</b> {{book.borrower.username}}<br>
+                        <b>Return Date:</b> {{book.return_date}}<br>
+                    </p>
+                {% endif %}
+                
 
-        <div class="card" style="width: 18rem; display: inline-block; margin:auto;" >
-        <img src="{{book.image_url}}" class="card-img-top" alt="...">
-        <div class="card-body">
-
-        <h5 class="card-title">{{book.title}}</h5>
-        <h5 class="card-title">{{book.auther}}</h5>
-        <h5 class="card-title">{{book.borrower.username}}</h5>
-        <h5 class="card-title">{{book.return_date}}</h5>
-
-        <a href="{% url 'book.borrow' book.id %}" class="btn btn-primary">Borrow</a>
-        <a href="{% url 'book.delete' book.id %}" class="btn btn-danger">Delete</a>
-        <a href="{% url 'book.update' book.id %}" class="btn btn-danger">Edit</a>
-
-
-
+                {% if not book.borrower and not user.username == "admin" %}
+                    <a href="{% url 'book.borrow' book.id %}" class="btn btn-primary">Borrow</a>
+                {% endif %}
+                {% if user.username == "admin" %}
+                    <a href="{% url 'book.update' book.id %}" class="btn btn-warning">Edit</a>
+                    <a href="{% url 'book.delete' book.id %}" class="btn btn-danger">Delete</a>
+                {% endif %}
+            </div>
         </div>
-    </div>
 
     {% endfor %}
 </div>
