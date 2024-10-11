@@ -1,0 +1,46 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %} Edit book {% endblock %}
+
+{% block content %}
+<h1 class="mb-4"> Edit Book </h1>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <div class="form-group mb-3">
+        <label for="id_title" class="form-label">Title</label>
+        <input type="text" name="title" class="form-control" id="id_title" value="{{ form.title.value }}">
+    </div>
+    
+    <div class="form-group mb-3">
+        <label for="id_author" class="form-label">Author</label>
+        <input type="text" name="author" class="form-control" id="id_author" value="{{ form.author.value }}">
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="id_image" class="form-label">Image</label>
+        <input type="file" name="image" class="form-control-file" id="id_image">
+        {% if form.image.value %}
+            <small class="form-text">Currently: <a href="{{ form.image.value.url }}" target="_blank">{{ form.image.value }}</a></small>
+        {% endif %}
+    </div>
+
+    <div class="form-group mt-4">
+        <input type="submit" class="btn btn-primary btn-block" value="Save changes">
+    </div>
+
+</form>
+
+{% if form.errors %}
+    <div class="alert alert-danger mt-4">
+        <ul>
+            {% for error in form.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+{% endblock %}

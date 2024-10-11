@@ -1,0 +1,34 @@
+{% extends 'layouts/base.html' %}
+{% load static  %}
+{% block title %} Books {% endblock  %}
+
+{% block content %}
+
+<div>
+    {% for book in books %}
+        <div class="card border-secondary" style="width: 18rem; display: inline-block; margin:auto;" >
+            <img src="{{ book.image_url }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{book.title}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{book.author}}</h6>
+                {% if book.borrower %}
+                    <p class="card-text">
+                        <b>Borrowed By:</b> {{book.borrower.username}}<br>
+                        <b>Return Date:</b> {{book.return_date}}<br>
+                    </p>
+                {% endif %}
+                
+
+                {% if not book.borrower and not user.username == "admin" %}
+                    <a href="{% url 'book.borrow' book.id %}" class="btn btn-primary">Borrow</a>
+                {% endif %}
+                {% if user.username == "admin" %}
+                    <a href="{% url 'book.update' book.id %}" class="btn btn-warning">Edit</a>
+                    <a href="{% url 'book.delete' book.id %}" class="btn btn-danger">Delete</a>
+                {% endif %}
+            </div>
+        </div>
+
+    {% endfor %}
+</div>
+{% endblock %}

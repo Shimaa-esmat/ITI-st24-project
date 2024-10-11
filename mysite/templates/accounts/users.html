@@ -1,0 +1,29 @@
+{% extends 'layouts/base.html' %}
+{% load static  %}
+{% block title %} Students {% endblock  %}
+
+{% block content %}
+
+<div>
+    {% for std in users %}
+
+        <div class="card" style="width: 18rem; height: inherit; display: inline-block; margin:auto;">
+            <div class="card-body">
+                <h5 class="card-title">{{std.username}}</h5>
+                <p class="card-text">
+                    <b>Email:</b> {{std.email}}<br>
+                    <b>ID:</b> {{std.id}}
+                </p>
+                {% if std.book_set.all %}
+                    <p class="card-text"><b>Borrowed books:</b></p>
+                    {% for book in std.book_set.all %}                    
+                        <li class="list-group-item">{{book.title}}</li>
+                    {% endfor %}
+                {% else %}
+                        <p class="card-text">No borrowed books</p>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

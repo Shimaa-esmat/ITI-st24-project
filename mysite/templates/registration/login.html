@@ -1,0 +1,17 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <h1 style="text-align: center; color: burlywood"> Login </h1>
+
+    <form method="post" >
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" class="btn btn-dark" value="Login">
+
+    </form>
+        <script src="{% static 'books/js/script.js' %}"></script>
+
+    </script>
+{% endblock %}
