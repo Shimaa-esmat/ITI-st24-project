@@ -1,0 +1,14 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+  <h1>User Info </h1>
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{user.username}}</h5>
+    <p class="card-text">{{user.email}} </p>
+    <a href="{% url 'accounts.update'  %}" class="btn btn-primary">Update</a>
+  </div>
+</div>
+
+{% endblock  %}

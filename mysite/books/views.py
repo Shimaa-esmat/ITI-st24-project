@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import  login_required
 import datetime
+from django.contrib.auth.models import User
 
 
 @login_required
@@ -43,9 +44,11 @@ def update_book(request, book_id):
 @login_required
 def borrrow_book(request, book_id):
     book = Book.objects.get(id=book_id)
-    book.borrwer = request.user.id
+    borrower =  User.objects.get(id = request.user.id)
+    book.borrwer = borrower
     print('----------------------------')
-    print(request.user.id)
+    print(borrower.username)
+    print('----------------------------')
 
     book.return_date = datetime.date.today()+datetime.timedelta(days=7)
     book.save()

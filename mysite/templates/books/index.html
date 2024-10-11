@@ -13,7 +13,7 @@
 
         <h5 class="card-title">{{book.title}}</h5>
         <h5 class="card-title">{{book.auther}}</h5>
-        <h5 class="card-title">{{book.borrower}}</h5>
+        <h5 class="card-title">{{book.borrower.username}}</h5>
         <h5 class="card-title">{{book.return_date}}</h5>
 
         <a href="{% url 'book.borrow' book.id %}" class="btn btn-primary">Borrow</a>

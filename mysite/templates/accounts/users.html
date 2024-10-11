@@ -1,0 +1,25 @@
+{% extends 'layouts/base.html' %}
+{% load static  %}
+{% block title %} Students {% endblock  %}
+
+{% block content %}
+
+<div>
+    {% for std in users %}
+
+        <div class="card" style="width: 18rem; display: inline-block; margin:auto;" >
+        <div class="card-body">
+
+        <h5 class="card-title">{{std.username}}</h5>
+        <h5 class="card-title">{{std.email}}</h5>
+
+
+
+
+
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+{% endblock %}
