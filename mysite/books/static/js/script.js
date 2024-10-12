@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    link = this.getElementsByClassName('nav-link')
-    console.log(link)
     const spans = document.querySelectorAll('span');
     spans.forEach(span => span.classList.add('d-block'));
 
@@ -30,7 +28,3 @@ document.addEventListener('DOMContentLoaded', function () {
     const textareas = document.querySelectorAll('textarea');
     textareas.forEach(textarea => textarea.classList.add('form-control'));
 });
-
-
-    link = document.getElementsByClassName('nav-link')
-    console.log(link)
