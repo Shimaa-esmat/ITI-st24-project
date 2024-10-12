@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block content %}
-    <h1 style="text-align: center; color: burlywood"> Login </h1>
+    <h1 style="text-align: center; color: black"> Login </h1>
 
     <form method="post" >
         {% csrf_token %}
@@ -11,7 +11,7 @@
         <input type="submit" class="btn btn-dark" value="Login">
 
     </form>
-        <script src="{% static 'books/js/script.js' %}"></script>
-
+    <script >
+        document.getElementById('login').classList.add('active')
     </script>
 {% endblock %}
