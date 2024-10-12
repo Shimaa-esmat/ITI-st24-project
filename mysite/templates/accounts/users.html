@@ -14,9 +14,9 @@
                     <b>Email:</b> {{std.email}}<br>
                     <b>ID:</b> {{std.id}}
                 </p>
-                {% if std.book_set.all %}
+                {% if std.books.all %}
                     <p class="card-text"><b>Borrowed books:</b></p>
-                    {% for book in std.book_set.all %}                    
+                    {% for book in std.books.all %}                    
                         <li class="list-group-item">{{book.title}}</li>
                     {% endfor %}
                 {% else %}

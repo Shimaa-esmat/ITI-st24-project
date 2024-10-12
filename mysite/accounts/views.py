@@ -43,7 +43,7 @@ def edit_profile(request):
 
 @login_required()
 def all_users(request):
-    users = User.objects.all()
+    users = User.objects.all().exclude(username = 'admin')
     return render(request, "accounts/users.html", context={"users": users})
 
 
@@ -51,6 +51,6 @@ def all_users(request):
 def search_users(request):
     if request.method == "POST":
         username = request.POST.get("id")
-        users = User.objects.filter(id=username)
+        users = User.objects.filter(id=username) 
         return render(request, "accounts/users.html", context={"users": users})
     return render(request, "accounts/users.html")
